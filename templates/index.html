@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block title %}front page{% endblock %}
+{% block content %}
+		<p><a href="/newpost">Add new post</a></p>
+		<p><a href="/search">Search posts</a></p>
+		<hr>
+		{% for id, title, content in posts %}
+			<h2><a href="/post?id={{ id }}">{{ title }}</a></h2>
+			<br />
+			{% for line in content.split('\r\n') %}
+			{{ line }}<br />
+			{% endfor %}
+			<hr>
+		{% endfor %}
+{% endblock %}

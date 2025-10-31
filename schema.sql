@@ -1,0 +1,3 @@
+CREATE TABLE users (id SERIAL PRIMARY KEY, username TEXT UNIQUE, password TEXT, role INTEGER);
+CREATE TABLE posts (id SERIAL PRIMARY KEY, title TEXT, content TEXT, added TIMESTAMP, updated TIMESTAMP, added_by INTEGER REFERENCES users, visible BOOLEAN);
+CREATE TABLE comments (id SERIAL PRIMARY KEY, post_id INTEGER REFERENCES posts, author INTEGER REFERENCES users, comment TEXT, added TIMESTAMP, visible BOOLEAN);

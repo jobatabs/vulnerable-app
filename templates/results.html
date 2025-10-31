@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block title %}search results{% endblock %}
+{% block content %}
+		<p><a href="/newpost">Add new post</a></p>
+		<hr>
+        <form action="/search" method="POST" onsubmit="return check(this)">
+            <label for="text">Search</label>
+            <input type="text" id="text" name="text" required><br />
+            <input type="submit" value="Search">
+        </form>
+        <script>
+            function check(form) {
+                if (form.text.value.length > 50) {
+                    alert("The search term you provided is too long");
+                    return false;
+                }
+                if (form.text.value.length < 1) {
+                    alert("The search term you provided is too short");
+                    return false;
+                }
+                return true;
+            }
+        </script>
+        <hr>
+		{% for id, title, content in results %}
+			<h2><a href="/post?id={{ id }}">{{ title }}</a></h2>
+			<br />
+			{% for line in content.split('\r\n') %}
+			{{ line }}<br />
+			{% endfor %}
+			<hr>
+		{% endfor %}
+{% endblock %}

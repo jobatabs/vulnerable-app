@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block title %}{% for title, content, added, updated, added_by in post %}{{title}}{% endfor %}{% endblock %}
+{% block content %}
+		<p><a href="/newpost">Add new post</a></p>
+		<p><a href="/search">Search posts</a></p>
+		<hr>
+		{% for title, content, added, updated, added_by in post %}
+        <h2>{{ title }}</h2><br />
+        {% for line in content.split('\r\n') %}
+			{{ line }}<br />
+		{% endfor %}<br /><div class="misc">
+		Added on {{ added.strftime("%Y-%m-%d, %H:%M") }} by {{ added_by }}<br />
+		Last updated on {{ updated.strftime("%Y-%m-%d, %H:%M") }}<br />
+		{% endfor %}</div>
+        <hr>
+		{% if session.username %}
+		<form action="/sendcomment" method="POST" onsubmit="return check(this)">
+            <p>Comment: <br>
+            <textarea name="comment" rows="3" cols="40"></textarea></p>
+			<input type="hidden" name="post_id" value="{{ id }}">
+			<input type="hidden" name="author" value="{{ session.user_id }}">
+			<input type="hidden" name="token" value="{{ session.token }}">
+            <br>
+            <input type="submit" value="Post">
+        </form>
+		<script>
+		function check(form) {
+			if (form.comment.value.length > 2000) {
+				alert("Your comment is too long, please keep it below 2000 characters");
+				return false;
+			}
+			return true;
+		}
+		</script>
+		<hr>
+		{% endif %}
+		{% for id, author, comment, added in comments %}
+			{% for line in comment.split('\r\n') %}
+			{{ line }}<br />
+			{% endfor %}
+			<div class="misc">
+            Author: {{ author }}<br />
+			Posted on: {{ added.strftime("%Y-%m-%d, %H:%M") }}<br />
+			{% if session.role == 1 %}
+			ID: {{ id }}
+			{% endif %}</div>
+			<hr>
+		{% endfor %}
+{% endblock %}
