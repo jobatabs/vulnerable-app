@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block title %}delete content{% endblock %}
 {% block content %}
-    {% if session.role == 1 %}
+    \{\% if session.role == 1 \%\}
         <form action="/delpost" method="POST" onsubmit="return check(this)">
             <label for="name">Post ID</label><br />
             <input id="id" type="text" name="id" required> 
@@ -23,7 +23,7 @@
                 return true;
             }
             </script>
-        {% else %}
+        \{\% else \%\}
         <p>You must be an administator to access this page.</p>
-        {% endif %}
+        \{\% endif \%\}
 {% endblock %}

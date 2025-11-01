@@ -114,33 +114,33 @@ def sendcomment():
 def delcomment():
     if users.invalid_token(request.form["token"]):
         abort(403)
-    if users.is_admin():
-        del_id = request.form["id"]
-        if len(del_id) < 1:
-            return render_template("error.html", \
-                                error="Please enter an ID.")
-        sql = text("UPDATE comments SET visible=FALSE WHERE comments.id=:del_id")
-        db.session.execute(sql, {"del_id":del_id})
-        db.session.commit()
-        return render_template("error.html", error="Delete successful.")
-    return render_template("error.html", \
-                                error="You must be an administrator to access this page.")
+    #if users.is_admin():
+    del_id = request.form["id"]
+    if len(del_id) < 1:
+        return render_template("error.html", \
+                            error="Please enter an ID.")
+    sql = text("UPDATE comments SET visible=FALSE WHERE comments.id=:del_id")
+    db.session.execute(sql, {"del_id":del_id})
+    db.session.commit()
+    return render_template("error.html", error="Delete successful.")
+    #return render_template("error.html", \
+    #                            error="You must be an administrator to access this page.")
 
 @app.route("/delpost", methods=["POST"])
 def delpost():
     if users.invalid_token(request.form["token"]):
         abort(403)
-    if users.is_admin():
-        del_id = request.form["id"]
-        if len(del_id) < 1:
-            return render_template("error.html", \
-                                error="Please enter an ID.")
-        sql = text("UPDATE posts SET visible=FALSE WHERE posts.id=:del_id")
-        db.session.execute(sql, {"del_id":del_id})
-        db.session.commit()
-        return render_template("error.html", error="Delete successful.")
-    return render_template("error.html", \
-                                error="You must be an administrator to access this page.")
+    #if users.is_admin():
+    del_id = request.form["id"]
+    if len(del_id) < 1:
+        return render_template("error.html", \
+                            error="Please enter an ID.")
+    sql = text("UPDATE posts SET visible=FALSE WHERE posts.id=:del_id")
+    db.session.execute(sql, {"del_id":del_id})
+    db.session.commit()
+    return render_template("error.html", error="Delete successful.")
+    #return render_template("error.html", \
+    #                            error="You must be an administrator to access this page.")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
