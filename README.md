@@ -41,3 +41,11 @@ A good way to generate the secret key would be:
         $ psql
         => UPDATE users SET role=1 WHERE username='<your username here>';
         => \q
+
+## Demonstrated security flaws
+
+1. A1:2017-Injection
+2. A7:2017-Cross-Site Scripting (XSS)
+3. A5:2017-Broken Access Control
+4. A3:2017-Sensitive Data Exposure
+5. Cross-Site Request Forgery
