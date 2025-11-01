@@ -25,10 +25,16 @@ def search():
         if len(query) > 50:
             return render_template("error.html", \
                                    error="Please keep your search term below 50 characters.")
-        sql = text("SELECT id, title, content \
-                   FROM posts WHERE LOWER(title) LIKE LOWER(:text) OR \
-                   LOWER(content) LIKE LOWER(:text)")
-        result = db.session.execute(sql, {"text":"%"+query+"%"})
+        #sql = text("SELECT id, title, content \
+        #           FROM posts WHERE LOWER(title) LIKE LOWER(:text) OR \
+        #           LOWER(content) LIKE LOWER(:text)")
+        #result = db.session.execute(sql, {"text":"%"+query+"%"})
+        sql = (
+            "SELECT id, title, content "
+            "FROM posts WHERE LOWER(title) LIKE LOWER('%" + query + "%') OR "
+            "LOWER(content) LIKE LOWER('%" + query + "%')"
+        )
+        result = db.session.execute(text(sql))
         results = result.fetchall()
         return render_template("results.html", results=results)
 
