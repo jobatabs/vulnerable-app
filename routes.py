@@ -56,8 +56,8 @@ def post():
 
 @app.route("/send", methods=["POST"])
 def send():
-    if users.invalid_token(request.form["token"]):
-        abort(403)
+    #if users.invalid_token(request.form["token"]):
+    #    abort(403)
     title = request.form["title"]
     content = request.form["content"]
     if len(title) < 1:
