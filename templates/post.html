@@ -35,9 +35,10 @@
 		<hr>
 		{% endif %}
 		{% for id, author, comment, added in comments %}
-			{% for line in comment.split('\r\n') %}
+			{{ comment | safe }}
+			<!--{% for line in comment.split('\r\n') %}
 			{{ line }}<br />
-			{% endfor %}
+			{% endfor %}-->
 			<div class="misc">
             Author: {{ author }}<br />
 			Posted on: {{ added.strftime("%Y-%m-%d, %H:%M") }}<br />
