@@ -81,11 +81,6 @@ def send():
                                       "content":content, \
                                       "user":users.user_id()})
     db.session.commit()
-    post_id = result.fetchone()[0]
-    for tag_id in request.form.getlist("tags"):
-        sql = text("INSERT INTO tagmap (tag_id, post_id) VALUES (:tag_id, :post_id)")
-        db.session.execute(sql, {"tag_id":tag_id, "post_id":post_id})
-    db.session.commit()
     return redirect("/")
 
 @app.route("/del")
